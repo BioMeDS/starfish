@@ -13,13 +13,11 @@ Approximate time to complete tutorial: 10 minutes
 Prerequisites
 -------------
 
-* Python 3.6+ installed (Python 3.7 recommended)
+* Python 3.9+ installed (Python 3.10 recommended)
 * Some basic knowledge of scientific computing in Python_
 * :ref:`Starfish library installed <installation>`
-* seaborn_ is installed: :code:`pip install seaborn`
 
 .. _Python: https://docs.scipy.org/doc/numpy/user/quickstart.html
-.. _seaborn: https://seaborn.pydata.org/
 
 Starfish Pipeline
 -----------------
@@ -109,7 +107,8 @@ from starfish.types import Axes
 def register(imgs, dots, method = 'translation'):
     mip_imgs = imgs.reduce(dims = [Axes.CH, Axes.ZPLANE], func="max")
     mip_dots = dots.reduce(dims = [Axes.CH, Axes.ZPLANE], func="max")
-    learn_translation = LearnTransform.Translation(reference_stack=mip_dots, axes=Axes.ROUND, upsampling=1000)
+    learn_translation = LearnTransform.Translation(reference_stack=mip_dots, axes=Axes.ROUND,
+                                                   upsampling=1000, normalization=None)
     transforms_list = learn_translation.run(mip_imgs)
     warp = ApplyTransform.Warp()
     registered_imgs = warp.run(imgs, transforms_list=transforms_list, in_place=False, verbose=True)

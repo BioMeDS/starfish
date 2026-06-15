@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.ndimage import distance_transform_edt, label
 from skimage.feature import peak_local_max
-from skimage.morphology import watershed
+from skimage.segmentation import watershed
 
 from starfish.core.morphology.binary_mask import BinaryMaskCollection
 from ._base import FilterAlgorithm
@@ -63,6 +63,7 @@ class MinDistanceLabel(FilterAlgorithm):
             exclude_border=self._exclude_border,
             footprint=footprint,
             labels=np.asarray(mask),
+            min_distance=self._minimum_distance_xy,
         )
         local_maximum_mask = np.zeros_like(distance, dtype=bool)
         local_maximum_mask[tuple(local_maximum.T)] = True

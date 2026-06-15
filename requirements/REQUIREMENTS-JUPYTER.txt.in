@@ -1,0 +1,4 @@
+# requirements to run jupyter
+# constrain the requirements to packages already in REQUIREMENTS-CI.txt
+-c REQUIREMENTS-CI.txt
+jupyter
